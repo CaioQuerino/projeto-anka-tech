@@ -45,7 +45,7 @@ Aplicação para gerenciamento de clientes e ativos financeiros, desenvolvida co
 | RNF4 | Uso de ShadCN para componentes de UI no frontend                                             | ✅ Concluído  |
 | RNF5 | Uso de Axios para requisições HTTP no frontend                                               | ✅ Concluído  |
 | RNF6 | Banco de dados MySQL rodando em um contêiner Docker                                          | ✅ Concluído  |
-| RNF7 | Configuração de variáveis de ambiente no backend para conexão com o banco de dados           | ✅ Pendente  |
+| RNF7 | Configuração de variáveis de ambiente no backend para conexão com o banco de dados           | ✅ Concluído  |
 
 ---
 
