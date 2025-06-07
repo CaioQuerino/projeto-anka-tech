@@ -115,7 +115,7 @@ services:
 ## Acessando o Cli do MySQL dentro do docker
 
 ```bash
-  docker-compose exec db mysql -u user -ppassword ;
+  docker-compose exec db mysql -u ${MYSQL_USER} -p${MYSQL_PASSWORD}
 ```
 - -u | nome do usuário configurado no `.env`
 - -p | senha definina no `.env`
