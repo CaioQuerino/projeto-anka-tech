@@ -40,7 +40,7 @@ Aplicação para gerenciamento de clientes e ativos financeiros, desenvolvida co
 | ID  | Descrição                                                                                     | Status       |
 |-----|----------------------------------------------------------------------------------------------|--------------|
 | RNF1 | Implementação 100% em TypeScript                                                             | ✅ Concluído  |
-| RNF2 | Uso de Docker Compose para containerizar a aplicação (backend, frontend e banco de dados)    | ⬜ Pendente  |
+| RNF2 | Uso de Docker Compose para containerizar a aplicação (backend, frontend e banco de dados)    | ✅ Pendente  |
 | RNF3 | Configuração do Prisma ORM para interagir com MySQL                                          | ✅ Concluído  |
 | RNF4 | Uso de ShadCN para componentes de UI no frontend                                             | ✅ Concluído  |
 | RNF5 | Uso de Axios para requisições HTTP no frontend                                               | ✅ Concluído  |
@@ -54,7 +54,8 @@ Aplicação para gerenciamento de clientes e ativos financeiros, desenvolvida co
 - Criar um serviço de bano de dados
 - Melhor configurados em um .env
 - Após configurar os dados necessários, rodar o serviço de banco de dados.
-- Configurações dfeitas no `.env`
+- Configurações feitas no `.env`
+- É necessário configurar o backend e o db primeiro
 
 ```bash
 services:
@@ -78,11 +79,37 @@ services:
 - Se não tiver feito as configurações pode ser sem `docker composer`
 - Fazer os testes do Backend e do DB fora do container
 
+## Root tem que dar permissão ao user que foi criado
+
+- Executar dentro do ci do mysql root
+- Você só vai conseguir executar os camandos do prisma para criar db com permissão
+
 ```bash
-  docker composer npx prisma init --datasource-provider mysql
-  docker composer npx prisma generate
-  docker composer npx prisma migrate dev --name init
-  docker composer npx prisma studio
+  -- Create user if doesn't exist (or identify existing user)
+  CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
+
+  -- Grant all privileges
+  GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+
+  -- Grant specific privileges needed for migrations
+  GRANT CREATE, ALTER, DROP, REFERENCES ON *.* TO 'user'@'%';
+  GRANT RELOAD, PROCESS ON *.* TO 'user'@'%';
+
+  -- For Prisma shadow database
+  GRANT CREATE TEMPORARY TABLES ON *.* TO 'user'@'%';
+
+  FLUSH PRIVILEGES;
+```
+
+- Alguns desses comando precisam de permissão do SGBD, verifique as permissões
+
+```bash
+  docker-compose exec backend npx prisma init --datasource-provider mysql
+  docker-compose exec backend npx prisma generate
+  docker-compose exec backend npx prisma migrate dev --name add_timestamps
+  docker-compose exec backend npx prisma studio
+
+  docker-compose up -d backend
 ```
 
 ## Acessando o Cli do MySQL dentro do docker
@@ -99,14 +126,20 @@ services:
 - Testar a conexão com os dados
 - Se receber uma mensagem de sucesso só clicar em Ok
 
+
+
 # FrontEnd
 
 ## Páginas funcionais
 
-```bash
-  http://localhost:3000/clients
-  http://localhost:3000/clients/[clientId]/assets
-  http://localhost:3000/clients/edit/[clientId]
-  http://localhost:3000/assets
-```
+- [/clients](http://localhost:3000/clients) — Lista de clientes
+
+- [/clients/[clientId]/assets](http://localhost:3000/clients/id/assets) — Ativos de um cliente
+
+- [ /clients/edit/[clientId]](http://localhost:3000/clients/edit/id) — Edição de cliente
+
+- [/assets](http://localhost:3000/assets) — Lista de ativos
+
+
+
 
