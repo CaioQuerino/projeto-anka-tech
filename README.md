@@ -40,7 +40,7 @@ Aplicação para gerenciamento de clientes e ativos financeiros, desenvolvida co
 | ID  | Descrição                                                                                     | Status       |
 |-----|----------------------------------------------------------------------------------------------|--------------|
 | RNF1 | Implementação 100% em TypeScript                                                             | ✅ Concluído  |
-| RNF2 | Uso de Docker Compose para containerizar a aplicação (backend, frontend e banco de dados)    | ✅ Pendente  |
+| RNF2 | Uso de Docker Compose para containerizar a aplicação (backend, frontend e banco de dados)    | ✅ Concluído  |
 | RNF3 | Configuração do Prisma ORM para interagir com MySQL                                          | ✅ Concluído  |
 | RNF4 | Uso de ShadCN para componentes de UI no frontend                                             | ✅ Concluído  |
 | RNF5 | Uso de Axios para requisições HTTP no frontend                                               | ✅ Concluído  |
