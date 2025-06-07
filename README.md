@@ -81,7 +81,7 @@ services:
 
 ## Root tem que dar permissão ao user que foi criado
 
-- Executar dentro do ci do mysql root
+- Executar dentro do cli do mysql root
 - Você só vai conseguir executar os camandos do prisma para criar db com permissão
 
 ```bash
